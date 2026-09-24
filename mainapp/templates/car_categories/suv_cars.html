@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Header Image -->
+<div class="col-sm-12 mb-5">
+    <img src="{% static 'img/creata.png' %}" class="d-block w-100" alt="SUV Cars" style="height: 400px; object-fit: cover;">
+</div>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">SUV Cars</h1>
+    
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+            <p class="text-center" style="text-align: justify;">
+                Experience the perfect combination of power, space, and versatility with our premium SUV collection. 
+                These robust vehicles are designed for both urban adventures and off-road excursions. With spacious 
+                interiors, advanced safety features, and powerful performance, our SUVs provide the ultimate driving 
+                experience for families and adventure seekers alike.
+            </p>
+        </div>
+    </div>
+    
+    <div class="row">
+        {% if cars %}
+            {% for car in cars %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ car.carpic.url }}" class="card-img-top" alt="{{ car.carname }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ car.carname }}</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Car Number:</strong> {{ car.carno }}</li>
+                            <li><strong>Price:</strong> ₹{{ car.carrent }}/day</li>
+                            <li><strong>Driver:</strong> {{ car.drivername }}</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <p class="text-center">No cars available in this category at the moment.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

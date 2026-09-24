@@ -1,0 +1,56 @@
+{% extends "custparent.html" %}
+{% block body %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="text-center mb-4">Your Bookings</h1>   
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Car Name</th>
+                            <th>Car No</th>
+                            <th>Driver Name</th>
+                            <th>Car Rent/Day</th>
+                            <th>Total Amount</th>
+                            <th>Booking Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for b in booking %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{b.carname}}</td>
+                            <td>{{b.carno}}</td>
+                            <td>{{b.drivername}}</td>
+                            <td>₹{{b.carrent}}</td>
+                            <td>₹{{b.total_amount}}</td>
+                            <td>{{b.bookingdate}}</td>
+                            <td>
+                                {% if b.status == 'active' %}
+                                    <span class="badge bg-success">Active</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Completed</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if b.status == 'active' %}
+                                    <a href="{% url 'custapp:returncar' id=b.carid %}" class="btn btn-warning btn-sm">Return Car</a>
+                                {% else %}
+                                    <span class="badge bg-info">Returned</span>
+                                {% endif %}
+                            </td>               
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center">No bookings found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>  
+            </div>
+        </div>
+    </div>
+{% endblock body %}
